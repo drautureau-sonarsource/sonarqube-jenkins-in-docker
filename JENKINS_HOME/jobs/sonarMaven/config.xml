@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<flow-definition plugin="workflow-job@2.6">
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+      <triggers/>
+    </org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+  </properties>
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.13">
+    <script>node {
+  stage(&apos;Create POM&apos;) {
+    writeFile file: &apos;pom.xml&apos;, text: &apos;&lt;project&gt;&lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;&lt;groupId&gt;org.sonarsource.test&lt;/groupId&gt;&lt;artifactId&gt;org.sonarsource.test&lt;/artifactId&gt;&lt;version&gt;1-SNAPSHOT&lt;/version&gt;&lt;packaging&gt;pom&lt;/packaging&gt;&lt;/project&gt;&apos;
+  }
+  stage(&apos;Analyse&apos;){
+    withSonarQubeEnv {
+      withMaven {
+        sh &quot;mvn $env.SONAR_MAVEN_GOAL -Dsonar.host.url=$env.SONAR_HOST_URL&quot;
+      }
+    }
+  }
+}
+
+def withMaven(def body) {
+  def javaHome = tool name: &apos;Java 8&apos;, type: &apos;hudson.model.JDK&apos;
+  def mvnHome = tool name: &apos;Maven 3.2.x&apos;, type: &apos;hudson.tasks.Maven$MavenInstallation&apos;
+  withEnv([&quot;JAVA_HOME=${javaHome}&quot;, &quot;PATH+MAVEN=${mvnHome}/bin&quot;]) {
+    body.call()
+  }
+}</script>
+    <sandbox>true</sandbox>
+  </definition>
+  <triggers/>
+</flow-definition>
