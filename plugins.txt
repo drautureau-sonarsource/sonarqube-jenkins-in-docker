@@ -1,7 +1,7 @@
 ace-editor:1.1
 branch-api:1.10
 cloudbees-folder:5.12
-credentials:2.1.4
+credentials:2.1.10
 durable-task:1.12
 git-client:2.0.0
 junit:1.2
