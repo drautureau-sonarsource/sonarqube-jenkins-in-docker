@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<flow-definition plugin="workflow-job@2.6">
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+      <triggers/>
+    </org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+  </properties>
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.13">
+    <script>node {
+  stage(&apos;Create JS file&apos;) {
+    writeFile file: &apos;src/test.js&apos;, text: &apos;var today= new Date()&apos;
+  }
+  stage(&apos;Analyse&apos;){
+    withSonarQubeEnv {
+      withScanner {
+        sh &quot;sonar-scanner -Dsonar.projectKey=sonarScanner -Dsonar.projectName=analyse-with-scanner -Dsonar.projectVersion=master -Dsonar.sources=src -Dsonar.language=js&quot;
+      }
+    }
+  }
+  
+}
+
+def withScanner(def body) {
+  def javaHome = tool name: &apos;Java 8&apos;, type: &apos;hudson.model.JDK&apos;
+  def scannerHome = tool name: &apos;SonarQube Scanner 2.8&apos;, type: &apos;hudson.plugins.sonar.SonarRunnerInstallation&apos;
+  withEnv([&quot;JAVA_HOME=${javaHome}&quot;, &quot;PATH+SCANNNER=${scannerHome}/bin&quot;]) {
+    body.call()
+  }
+}
+
+</script>
+    <sandbox>true</sandbox>
+  </definition>
+  <triggers/>
+</flow-definition>
