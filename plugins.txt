@@ -14,7 +14,7 @@ git:3.0.1
 git-server:1.7
 handlebars:1.1.1
 jquery-detached:1.2.1
-mock-slave:1.9
+mock-slave:1.10
 momentjs:1.1.1
 pipeline-build-step:2.2
 pipeline-graph-analysis:1.1
