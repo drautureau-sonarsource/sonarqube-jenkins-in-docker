@@ -1,6 +1,6 @@
 bouncycastle-api:2.16.0
 ace-editor:1.1
-branch-api:1.10
+branch-api:1.11.1
 cloudbees-folder:5.13
 credentials:2.1.10
 durable-task:1.12
