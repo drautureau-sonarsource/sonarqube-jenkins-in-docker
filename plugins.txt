@@ -1,7 +1,7 @@
 bouncycastle-api:2.16.0
 ace-editor:1.1
 branch-api:1.10
-cloudbees-folder:5.12
+cloudbees-folder:5.13
 credentials:2.1.10
 durable-task:1.12
 git-client:2.1.0
