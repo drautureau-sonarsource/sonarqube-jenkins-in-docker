@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<flow-definition plugin="workflow-job@2.9">
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+      <triggers/>
+    </org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+  </properties>
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.23">
+    <script>node {
+  stage(&apos;Pre step&apos;) {
+    echo &apos;Running pre step&apos;
+  }
+}
+stage(&apos;Parallel steps&apos;) {
+  parallel firstBranch: {
+    node {
+      echo &apos;Running first branch&apos;
+    }
+  }, secondBranch: {
+    node {
+      echo &apos;Running second branch&apos;
+    }
+  },
+  failFast: true
+}
+stage(&apos;Post step&apos;) {
+  echo &apos;Running post step&apos;
+}</script>
+    <sandbox>true</sandbox>
+  </definition>
+  <triggers/>
+</flow-definition>

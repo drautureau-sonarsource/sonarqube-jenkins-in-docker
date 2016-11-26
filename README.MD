@@ -5,10 +5,11 @@ Create a running multi-container Docker applications with
   * Java tool preinstalled (version 8)
   * a SonarQube installation
   * a SonarQube scanner tools installation
-  * a pipeline project using Maven to build and scan: [Analyse-with-Maven](http://localhost:8080/blue/organizations/jenkins/Analyse-with-Maven/activity)
-  * a pipeline project using Scanner: [Analyse-with-Scanner](http://localhost:8080/blue/organizations/jenkins/Analyse-with-Scanner/activity)
+  * a project using Maven to build and scan: [Analyse-with-Maven](http://localhost:8080/blue/organizations/jenkins/Analyse-with-Maven/activity)
+  * a project using Scanner: [Analyse-with-Scanner](http://localhost:8080/blue/organizations/jenkins/Analyse-with-Scanner/activity)
+  * a project having parallel steps: [Parallel-steps](http://localhost:8080/blue/organizations/jenkins/Parallel-steps/activity)
 * SonarQube available at <http://localhost:9000>
 
-You need to have [Docker Compose](https://docs.docker.com/compose//) installed
+You need to have [Docker Compose](https://docs.docker.com/compose/) installed
 
 Run with ```docker-compose up```
