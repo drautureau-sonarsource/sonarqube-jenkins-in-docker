@@ -1,5 +1,5 @@
 Create a running multi-container Docker applications with
-* Jenkins 2.7.3 (available at http://localhost:8080) with 
+* Jenkins 2.19.3 (available at http://localhost:8080) with 
   * SonarQube plugin installed (compatible with pipeline) and all required plugins
   * Maven tool preinstalled (version 3.2.5)
   * Java tool preinstalled (version 8)
