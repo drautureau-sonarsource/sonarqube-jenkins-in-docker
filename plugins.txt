@@ -22,7 +22,7 @@ pipeline-input-step:2.1
 pipeline-rest-api:2.0
 pipeline-stage-step:2.2
 pipeline-stage-view:2.0
-script-security:1.22
+script-security:1.24
 ssh-credentials:1.12
 structs:1.5
 workflow-aggregator:2.3
