@@ -16,7 +16,7 @@
   stage(&apos;Analyse&apos;){
     withSonarQubeEnv {
       withMaven {
-        sh &quot;mvn $env.SONAR_MAVEN_GOAL&quot;
+        sh &quot;mvn -B $env.SONAR_MAVEN_GOAL&quot;
       }
     }
   }
