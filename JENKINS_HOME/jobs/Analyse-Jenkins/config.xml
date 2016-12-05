@@ -15,7 +15,7 @@
   }
   stage(&apos;Build&apos;){
     withMaven {
-      sh &quot;mvn -Plight-test install&quot;
+      sh &quot;mvn -B -Plight-test install&quot;
     }
   }
   stage(&apos;Analyse&apos;){
