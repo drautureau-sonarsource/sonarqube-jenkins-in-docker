@@ -10,7 +10,7 @@ services:
     depends_on:
      - sonarqube
   sonarqube:
-    image: sonarqube
+    image: sonarqube:6.2
     ports:
      - "9000:9000"
      - "9092:9092"
