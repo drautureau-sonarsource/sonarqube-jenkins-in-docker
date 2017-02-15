@@ -11,7 +11,7 @@ USER jenkins
 
 # Install plugins
 #   jquery is needed by sonar plugin
-RUN /usr/local/bin/install-plugins.sh mock-slave workflow-aggregator blueocean jquery
+RUN /usr/local/bin/install-plugins.sh mock-slave workflow-aggregator blueocean blueocean-pipeline-editor jquery
 
 # Install SQ plugin
 RUN cd /usr/share/jenkins/ref/plugins; wget -q https://repo.jenkins-ci.org/releases/org/jenkins-ci/plugins/sonar/2.5/sonar-2.5.hpi
