@@ -8,9 +8,15 @@ services:
      - "8081:8081"
      - "9418:9418"
     depends_on:
-     - sonarqube
-  sonarqube:
+     - sonarqube-1
+     - sonarqube-2
+  sonarqube-1:
     image: sonarqube:6.2
     ports:
      - "9000:9000"
      - "9092:9092"
+  sonarqube-2:
+    image: sonarqube:6.2
+    ports:
+     - "9100:9000"
+     - "9192:9092"
