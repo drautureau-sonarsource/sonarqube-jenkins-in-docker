@@ -1,0 +1,25 @@
+node {
+  stage('Checkout') {
+    git 'https://github.com/jenkinsci/jenkins.git'
+  }
+  stage('Build'){
+    withMaven {
+      sh "mvn -B -Plight-test install"
+    }
+  }
+  stage('Analyse'){
+    withSonarQubeEnv {
+      withMaven {
+        sh "mvn $env.SONAR_MAVEN_GOAL"
+      }
+    }
+  }
+}
+
+def withMaven(def body) {
+  def javaHome = tool name: 'Java 8', type: 'hudson.model.JDK'
+  def mvnHome = tool name: 'Maven 3.2.x', type: 'hudson.tasks.Maven$MavenInstallation'
+  withEnv(["JAVA_HOME=${javaHome}", "PATH+MAVEN=${mvnHome}/bin"]) {
+    body.call()
+  }
+}
