@@ -1,0 +1,20 @@
+node {
+  stage('Create POM') {
+    writeFile file: 'pom.xml', text: '<project><modelVersion>4.0.0</modelVersion><groupId>org.sonarsource.pipeline</groupId><artifactId>analyse-with-maven</artifactId><version>1-SNAPSHOT</version><packaging>pom</packaging></project>'
+  }
+  stage('Analyse'){
+    withSonarQubeEnv {
+      withMaven {
+        sh "mvn -B $env.SONAR_MAVEN_GOAL"
+      }
+    }
+  }
+}
+
+def withMaven(def body) {
+  def javaHome = tool name: 'Java 8', type: 'hudson.model.JDK'
+  def mvnHome = tool name: 'Maven 3.2.x', type: 'hudson.tasks.Maven$MavenInstallation'
+  withEnv(["JAVA_HOME=${javaHome}", "PATH+MAVEN=${mvnHome}/bin"]) {
+    body.call()
+  }
+}

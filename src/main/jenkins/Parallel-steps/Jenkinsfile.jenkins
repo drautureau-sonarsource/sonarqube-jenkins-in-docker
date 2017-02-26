@@ -1,0 +1,19 @@
+node {
+  stage('Pre step') {
+    echo 'Running pre step'
+  }
+}
+stage('Parallel steps') {
+  parallel firstBranch: {
+    node {
+      echo 'Running first branch'
+    }
+  }, secondBranch: {
+    node {
+      echo 'Running second branch'
+    }
+  }, failFast: true
+}
+stage('Post step') {
+  echo 'Running post step'
+}

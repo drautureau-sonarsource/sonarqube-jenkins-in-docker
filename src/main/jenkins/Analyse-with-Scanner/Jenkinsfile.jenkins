@@ -1,0 +1,20 @@
+node {
+  stage('Create JS file') {
+    writeFile file: 'src/test.js', text: 'var today= new Date()'
+  }
+  stage('Analyse'){
+    withSonarQubeEnv {
+      withScanner {
+        sh "sonar-scanner -Dsonar.projectKey=sonarScanner -Dsonar.projectName=analyse-with-scanner -Dsonar.projectVersion=master -Dsonar.sources=src -Dsonar.language=js"
+      }
+    }
+  }
+}
+
+def withScanner(def body) {
+  def javaHome = tool name: 'Java 8', type: 'hudson.model.JDK'
+  def scannerHome = tool name: 'SonarQube Scanner 2.8', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+  withEnv(["JAVA_HOME=${javaHome}", "PATH+SCANNER=${scannerHome}/bin"]) {
+    body.call()
+    }
+}
