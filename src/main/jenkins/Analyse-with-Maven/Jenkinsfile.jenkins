@@ -1,11 +1,13 @@
-node {
-  stage('Create POM') {
-    writeFile file: 'pom.xml', text: '<project><modelVersion>4.0.0</modelVersion><groupId>org.sonarsource.pipeline</groupId><artifactId>analyse-with-maven</artifactId><version>1-SNAPSHOT</version><packaging>pom</packaging></project>'
+node() {
+  stage('checkout') {
+    checkout scm
   }
-  stage('Analyse'){
+  stage('Analyse') {
     withSonarQubeEnv {
       withMaven {
-        sh "mvn -B $env.SONAR_MAVEN_GOAL"
+        dir('Analyse-with-Maven') {
+          sh "mvn -B $env.SONAR_MAVEN_GOAL"
+        }
       }
     }
   }
