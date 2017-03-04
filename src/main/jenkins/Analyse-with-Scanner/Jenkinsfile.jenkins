@@ -1,11 +1,13 @@
 node {
-  stage('Create JS file') {
-    writeFile file: 'src/test.js', text: 'var today= new Date()'
+  stage('checkout') {
+    checkout scm
   }
-  stage('Analyse'){
+  stage('Analyse') {
     withSonarQubeEnv {
       withScanner {
-        sh "sonar-scanner -Dsonar.projectKey=sonarScanner -Dsonar.projectName=analyse-with-scanner -Dsonar.projectVersion=master -Dsonar.sources=src -Dsonar.language=js"
+        dir('Analyse-with-Scanner') {
+          sh "sonar-scanner -Dsonar.projectKey=sonarScanner -Dsonar.projectName=analyse-with-scanner -Dsonar.projectVersion=master -Dsonar.sources=src/main/javascript -Dsonar.language=js"
+        }
       }
     }
   }

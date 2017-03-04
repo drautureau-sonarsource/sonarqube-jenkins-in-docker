@@ -1,0 +1,7 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.sonarsource.pipeline</groupId>
+  <artifactId>analyse-with-maven</artifactId>
+  <version>1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+</project>
