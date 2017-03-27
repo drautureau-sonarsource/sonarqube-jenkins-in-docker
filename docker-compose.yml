@@ -1,7 +1,7 @@
 version: '2.1'
 services:
   jenkins:
-    build: .
+    build: ./jenkins
     ports:
      - "2222:2222"
      - "8080:8080"
