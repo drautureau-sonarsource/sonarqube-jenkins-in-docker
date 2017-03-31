@@ -3,7 +3,7 @@
   <installations>
     <hudson.plugins.sonar.SonarInstallation>
       <name>Localhost</name>
-      <serverUrl>http://sonarqube:9000</serverUrl>
+      <serverUrl>http://sonarqube:9000/sonarqube</serverUrl>
       <serverVersion>5.3</serverVersion>
       <serverAuthenticationToken></serverAuthenticationToken>
       <mojoVersion></mojoVersion>
