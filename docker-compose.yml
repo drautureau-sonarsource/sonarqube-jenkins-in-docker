@@ -10,7 +10,7 @@ services:
     depends_on:
      sonarqube:
        condition: service_healthy
-    command: curl -X POST -u 'admin:admin' -d 'key=sonar.webhooks.global&fieldValues=%7B%22name%22%3A%22jenkins%22%2C%22url%22%3A%22http%3A%2F%2Fjenkins%3A8080%2Fsonarqube-webhook%2F%22%7D' 'http://sonarqube:9000/api/settings/set'
+    command: bash -c "curl -X POST -u 'admin:admin' -d 'key=sonar.webhooks.global&fieldValues=%7B%22name%22%3A%22jenkins%22%2C%22url%22%3A%22http%3A%2F%2Fjenkins%3A8080%2Fsonarqube-webhook%2F%22%7D' 'http://sonarqube:9000/api/settings/set' && /bin/tini -s -- /usr/local/bin/jenkins.sh"
   sonarqube:
     image: sonarqube:6.3
     ports:
