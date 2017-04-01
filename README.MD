@@ -14,3 +14,5 @@ Create a running multi-container Docker applications with
 You need to have [Docker Compose](https://docs.docker.com/compose/) installed
 
 Run with ```docker-compose up```
+
+Predifined projects are available in a the git repository hosted by the Jenkins container thanks to [Git userContent plugin](https://wiki.jenkins-ci.org/display/JENKINS/Git+userContent+plugin) (See <http://localhost:8080/userContent.git> for details)

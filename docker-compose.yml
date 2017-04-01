@@ -1,4 +1,4 @@
-version: '2'
+version: '2.1'
 services:
   jenkins:
     build: .
@@ -8,9 +8,16 @@ services:
      - "8081:8081"
      - "9418:9418"
     depends_on:
-     - sonarqube
+     sonarqube:
+       condition: service_healthy
+    command: bash -c "curl -X POST -u 'admin:admin' -d 'key=sonar.webhooks.global&fieldValues=%7B%22name%22%3A%22jenkins%22%2C%22url%22%3A%22http%3A%2F%2Fjenkins%3A8080%2Fsonarqube-webhook%2F%22%7D' 'http://sonarqube:9000/api/settings/set' && /bin/tini -s -- /usr/local/bin/jenkins.sh"
   sonarqube:
     image: sonarqube:6.3
     ports:
      - "9000:9000"
      - "9092:9092"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://sonarqube:9000"]
+      interval: 5s
+      timeout: 5s
+      retries: 3
