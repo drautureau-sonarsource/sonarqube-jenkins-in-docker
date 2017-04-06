@@ -1,7 +1,7 @@
 Create a running multi-container Docker applications with
 * Jenkins with Pipeline plugins and Blue Ocean available at <http://localhost:8080/blue/pipelines> with 
   * SonarQube plugin installed
-  * Maven tool preinstalled (version 3.2.5)
+  * Maven tool preinstalled (version 3.3.9)
   * Java tool preinstalled (version 8)
   * a SonarQube installation
   * a SonarQube scanner tools installation

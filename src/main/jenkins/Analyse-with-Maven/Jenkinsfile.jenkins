@@ -24,7 +24,7 @@ stage("Quality Gate") {
 
 def withMaven(def body) {
   def javaHome = tool name: 'Java 8', type: 'hudson.model.JDK'
-  def mvnHome = tool name: 'Maven 3.2.x', type: 'hudson.tasks.Maven$MavenInstallation'
+  def mvnHome = tool name: 'Maven 3.3.x', type: 'hudson.tasks.Maven$MavenInstallation'
   withEnv(["JAVA_HOME=${javaHome}", "PATH+MAVEN=${mvnHome}/bin"]) {
     body.call()
   }
