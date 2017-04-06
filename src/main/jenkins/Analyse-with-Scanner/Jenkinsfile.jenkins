@@ -24,7 +24,7 @@ stage("Quality Gate") {
 
 def withScanner(def body) {
   def javaHome = tool name: 'Java 8', type: 'hudson.model.JDK'
-  def scannerHome = tool name: 'SonarQube Scanner 2.8', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+  def scannerHome = tool name: 'SonarQube Scanner 3.0', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
   withEnv(["JAVA_HOME=${javaHome}", "PATH+SCANNER=${scannerHome}/bin"]) {
     body.call()
     }
