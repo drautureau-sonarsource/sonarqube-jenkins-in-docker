@@ -10,8 +10,9 @@ RUN cd /usr/local; wget -q -O - http://mirrors.ibiblio.org/apache/maven/maven-3/
 USER jenkins
 
 # Install plugins
-#   jquery is needed by sonar plugin
-RUN /usr/local/bin/install-plugins.sh mock-slave workflow-aggregator git-userContent blueocean jquery
+# workflow-job:2.11 because last version (2.12) - at the time I am writting this commit - is not compliant with LTS version (2.46.2): requires 2.60
+# jquery is needed by sonar plugin
+RUN /usr/local/bin/install-plugins.sh mock-slave workflow-job:2.11 workflow-aggregator git-userContent blueocean jquery
 
 # Install SQ plugin
 RUN cd /usr/share/jenkins/ref/plugins; wget -q https://repo.jenkins-ci.org/releases/org/jenkins-ci/plugins/sonar/2.6.1/sonar-2.6.1.hpi
