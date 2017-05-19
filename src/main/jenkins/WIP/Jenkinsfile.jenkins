@@ -1,0 +1,42 @@
+node {
+  stage('checkout') {
+    checkout scm
+  }
+  stage('Analyse') {
+    withSonarQubeEnv {
+      withScanner {
+        dir('WIP') {
+          sh "sonar-scanner -Dsonar.projectKey=sonarScanner -Dsonar.projectName=WIP -Dsonar.projectVersion=master -Dsonar.sources=src/main/javascript -Dsonar.language=js"
+        }
+      }
+    }
+  }
+}
+
+stage('Validation') {
+  parallel QA: {
+    timeout(time: 5, unit: 'SECONDS') {
+      print 'QA in progress...'
+    }
+  }, 'Quality Gate': {
+    timeout(time: 1, unit: 'HOURS') { // Just in case something goes wrong, pipeline will be killed after a timeout
+      def qg = waitForQualityGate() // Reuse taskId previously collected by withSonarQubeEnv
+      if (qg.status != 'OK') {
+        error "Pipeline aborted due to quality gate failure: ${qg.status}"
+      }
+    }
+  }
+}
+
+stage("Release") {
+  print 'Processing sanity checks for release...'
+  input 'LGTM?'
+}
+
+def withScanner(def body) {
+  def javaHome = tool name: 'Java 8', type: 'hudson.model.JDK'
+  def scannerHome = tool name: 'SonarQube Scanner 3.0', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+  withEnv(["JAVA_HOME=${javaHome}", "PATH+SCANNER=${scannerHome}/bin"]) {
+    body.call()
+    }
+}
