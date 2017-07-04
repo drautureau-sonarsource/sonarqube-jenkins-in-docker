@@ -1,0 +1,6 @@
+FROM sonarqube:6.4
+
+COPY check-running.sh $SONARQUBE_HOME/bin/
+
+HEALTHCHECK --start-period=10s --interval=5s --timeout=5s --retries=5 \
+  CMD ./bin/check-running.sh
