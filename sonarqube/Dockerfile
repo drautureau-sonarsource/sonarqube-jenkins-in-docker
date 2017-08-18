@@ -1,4 +1,4 @@
-FROM sonarqube:6.4
+FROM sonarqube:6.5
 
 RUN apt-get -y update && apt-get install -y jq
 
