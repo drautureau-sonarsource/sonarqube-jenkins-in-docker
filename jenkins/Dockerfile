@@ -1,4 +1,4 @@
-FROM jenkins/jenkins:2.60.3
+FROM jenkins/jenkins:2.150.3
 
 USER root
 
@@ -10,13 +10,15 @@ RUN cd /usr/local; wget -q -O - http://mirrors.ibiblio.org/apache/maven/maven-3/
 USER jenkins
 
 # Install plugins
-# workflow-job:2.11 because last version (2.12) - at the time I am writting this commit - is not compliant with LTS version (2.46.2): requires 2.60
 # jquery is needed by sonar plugin
-RUN /usr/local/bin/install-plugins.sh mock-slave workflow-job:2.11 workflow-aggregator git-userContent blueocean jquery
+RUN /usr/local/bin/install-plugins.sh mock-slave workflow-job workflow-aggregator git-userContent blueocean jquery
 
 # Install SQ plugin
-RUN cd /usr/share/jenkins/ref/plugins; wget -q https://repo.jenkins-ci.org/releases/org/jenkins-ci/plugins/sonar/2.6.1/sonar-2.6.1.hpi
-
+ARG ARTIFACTORY_USER=admin
+ARG ARTIFACTORY_PASSWORD=admin
+ENV SONAR_JENKINS_PLUGIN_VERSION=2.9.0.2176
+ENV ARTIFACTORY_REPO=sonarsource
+RUN curl -o "/usr/share/jenkins/ref/plugins/sonar-${SONAR_JENKINS_PLUGIN_VERSION}.hpi"  -LsS -u"${REPOX_USER}:${REPOX_PASSWORD}" "https://repox.jfrog.io/repox/${ARTIFACTORY_REPO}/org/jenkins-ci/plugins/sonar/${SONAR_JENKINS_PLUGIN_VERSION}/sonar-${SONAR_JENKINS_PLUGIN_VERSION}.hpi"
 ADD JENKINS_HOME /usr/share/jenkins/ref
 
 ADD src/main/jenkins /usr/share/jenkins/ref/userContent

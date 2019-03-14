@@ -1,6 +1,6 @@
-FROM sonarqube:6.5
+FROM sonarqube:6.7.6-community
 
-RUN apt-get -y update && apt-get install -y jq
+#RUN apt-get -y update && apt-get install -y jq
 
 COPY check-running.sh $SONARQUBE_HOME/bin/
 
